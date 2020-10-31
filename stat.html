@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Taurus</title>
+		<link rel="stylesheet" href="stylesheet/common.css" />
+		<link rel="stylesheet" href="stylesheet/style.css" />
+		<link rel="icon" type="image/x-icon" href='images/favicon.ico' />
+		<script type="text/javascript" src="javascript/jquery.js"></script>
+		<script type="text/javascript" src="javascript/clipboard.min.js"></script>
+		<script type="text/javascript" src="javascript/tronweb.js"></script>
+		<script type="text/javascript" src="javascript/language.js"></script>
+		<script type="text/javascript" src="javascript/vue.js"></script>
+		<script type="text/javascript">
+			var TAG = "STAT";
+		</script>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+
+			<div class="header">
+				<!--header start-->
+				<div class="top">
+
+					<div class="nav">
+						<a href="javascript:void(0)" @click="getMenu('index')" :class="{'current':TAG=='INDEX'}">{{langItem.com.home}}</a>
+						<a href="javascript:void(0)" @click="getMenu('main')" :class="{'current':TAG=='MAIN'}">{{langItem.com.main}}</a>
+						<a href="javascript:void(0)" @click="getMenu('invite')" :class="{'current':TAG=='INVITE'}">{{langItem.com.invite}}</a>
+						<a class="getLang" href="javascript:void(0)" @click="displayMenu">{{langList[currentLang]}}<span></span></a>
+					</div>
+
+
+
+					<div class="lang_list" v-show="menu">
+
+						<ul>
+							<li v-for="(value,index) in langList" @click="changeLang(index)">{{value}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="top_img"><img src="images/top_2.jpg"></div>
+				<div class="top_pc_img2"></div>
+				<!--pc-->
+
+
+			</div>
+			<!--header end-->
+
+			<div class="content_box box_bg">
+				<div class="block_item data_box common_bg">
+					<h3>{{langItem.data.title}}</h3>
+					<ul>
+						<li>
+							<dl>
+								<dt>{{langItem.data.totalMembers}}</dt>
+								<dd>{{langItem.data.members}}：{{stat[0]}}</dd>
+								<dd>{{langItem.data.amount}}：{{stat[1] / 10**6 | numFilter}} TRX</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>{{langItem.data.todayMembers}}</dt>
+								<dd>{{langItem.data.members}}：{{stat[10]}}</dd>
+								<dd>{{langItem.data.amount}}：{{stat[11] / 10**6 | numFilter}} TRX</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>{{langItem.data.totalSlide}}</dt>
+								<dd>{{langItem.data.times}}：{{stat[4]}}</dd>
+								<dd>{{langItem.data.amount}}：{{stat[5] / 10**6 | numFilter}} TRX</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt>{{langItem.data.todaySlide}}</dt>
+								<dd>{{langItem.data.times}}：{{stat[6]}}</dd>
+								<dd>{{langItem.data.amount}}：{{stat[7] / 10**6 | numFilter}} TRX</dd>
+							</dl>
+						</li>
+
+						<li>
+							<dl>
+								<dt>{{langItem.data.totalRandom}}</dt>
+								<dd>{{langItem.data.times}}：{{stat[2]}}</dd>
+								<dd>{{langItem.data.amount}}：{{stat[3] / 10**6 | numFilter}} TRX</dd>
+							</dl>
+							<dl>
+								<dt>{{langItem.data.todayRandom}}</dt>
+								<dd>{{langItem.data.times}}：{{stat[8]}}</dd>
+								<dd>{{langItem.data.amount}}：{{stat[9] / 10**6 | numFilter}} TRX</dd>
+							</dl>
+						</li>
+
+						<li>
+							<dl>
+								<dt>{{langItem.data.levelTitle}}</dt>
+								<dd>50{{langItem.main.times}}：{{stat[12][0]}}</dd>
+								<dd>100{{langItem.main.times}}：{{stat[12][1]}}</dd>
+								<dd>150{{langItem.main.times}}：{{stat[12][2]}}</dd>
+								<dd>200{{langItem.main.times}}：{{stat[12][3]}}</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+
+
+			</div>
+			<!--content_box end-->
+			<layer-up v-show="copySuccess" :title="langItem.com.tip" :message="langItem.com.copySuccess"></layer-up>
+
+			<loading v-show="showLoading"></loading>
+		</div>
+
+		<script type="text/javascript" src="javascript/app.js "></script>
+
+	</body>
+
+</html>

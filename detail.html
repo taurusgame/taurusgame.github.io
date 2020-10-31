@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Taurus</title>
+		<link rel="stylesheet" href="stylesheet/common.css" />
+		<link rel="stylesheet" href="stylesheet/style.css" />
+		<link rel="icon" type="image/x-icon" href='images/favicon.ico' />
+		<script type="text/javascript" src="javascript/jquery.js"></script>
+		<script type="text/javascript" src="javascript/clipboard.min.js"></script>
+		<script type="text/javascript" src="javascript/tronweb.js"></script>
+		<script type="text/javascript" src="javascript/language.js"></script>
+		<script type="text/javascript" src="javascript/vue.js"></script>
+		<script type="text/javascript">
+			var TAG = "DETAIL";
+		</script>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+
+			<div class="header">
+				<!--header start-->
+				<div class="top">
+                    
+					<div class="nav">
+						<a href="javascript:void(0)"  @click="getMenu('index')" :class="{'current':TAG=='INDEX'}">{{langItem.com.home}}</a>					
+					    <a href="javascript:void(0)"  @click="getMenu('main')" :class="{'current':TAG=='MAIN'}">{{langItem.com.main}}</a>
+						<a  href="javascript:void(0)" @click="getMenu('invite')" :class="{'current':TAG=='INVITE'}">{{langItem.com.invite}}</a>
+						<a class="getLang" href="javascript:void(0)"  @click="displayMenu">{{langList[currentLang]}}<span></span></a>
+					</div>
+					
+					
+
+					<div class="lang_list" v-show="menu">
+
+						<ul>
+							<li v-for="(value,index) in langList" @click="changeLang(index)">{{value}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="top_img"><img src="images/top_2.jpg"></div>
+				<div class="top_pc_img2"></div> <!--pc-->
+				
+
+			</div>
+			<!--header end-->
+              
+			<div class="content_box box_bg">
+
+				<div class="my_income">{{langItem.main.totalIncome}}：<span class="red">{{income | numFilter}}</span> TRX</div>
+			
+
+				
+				<div class="history common_bg">
+					<h3>
+					   {{langItem.history.record}}（{{langItem.history.total}} 
+					   <span>{{logCount}}</span> {{langItem.history.strip}}）
+					</h3>
+				
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<th>{{langItem.history.time}}</th>
+							<th>UID</th>
+							<th>{{langItem.history.type}}</th>
+							<th>TRX</th>
+						</tr>
+						<tr v-for="(value,index) in matrixHistory">
+							
+							<td>{{value.time | formatTimeStamp('yyyy-MM-dd hh:mm')}}</td>
+							<td>{{value.uid}}</td>
+							
+							<td>
+								<span v-if="value.type==1" class="invite_color">{{langItem.main.inviteIncome}}</span>
+								<span v-if="value.type==2" class="net_color">{{langItem.main.netIncome}}</span>
+								<span v-if="value.type==3" class="random_color">{{langItem.main.randomIncome}}</span>
+							</td>
+							<td v-if="value.income==0" class="red">{{langItem.history.quota}}</td>
+							<td v-if="value.income > 0">{{value.income}}</td>
+						</tr>
+					</table>
+			  	    <div class="get_page">
+						<em class="circle-left" @click="getLogPage(-1)">&nbsp;</em> 
+						{{logIndex}} / {{logPageCount}}
+						<em class="circle-right" @click="getLogPage(1)">&nbsp;</em>
+					</div>
+				</div>
+
+			</div>
+			<!--content_box end-->
+			<loading v-show="showLoading"></loading>
+
+		</div>
+	<script type="text/javascript" src="javascript/app.js"></script>
+	</body>
+
+</html>

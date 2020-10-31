@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Taurus</title>
+		<link rel="stylesheet" href="stylesheet/common.css" />
+		<link rel="stylesheet" href="stylesheet/style.css" />
+		<link rel="icon" type="image/x-icon" href='images/favicon.ico' />
+		<script type="text/javascript" src="javascript/jquery.js"></script>
+		<script type="text/javascript" src="javascript/clipboard.min.js"></script>
+		<script type="text/javascript" src="javascript/tronweb.js"></script>
+		<script type="text/javascript" src="javascript/language.js"></script>
+		<script type="text/javascript" src="javascript/vue.js"></script>
+		<script type="text/javascript">
+			var TAG = "INVITE";
+		</script>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+
+			<div class="header">
+				<!--header start-->
+				<div class="top">
+                    
+					<div class="nav">
+						<a href="javascript:void(0)"  @click="getMenu('index')" :class="{'current':TAG=='INDEX'}">{{langItem.com.home}}</a>					
+					    <a href="javascript:void(0)"  @click="getMenu('main')" :class="{'current':TAG=='MAIN'}">{{langItem.com.main}}</a>
+						<a  href="javascript:void(0)" @click="getMenu('invite')" :class="{'current':TAG=='INVITE'}">{{langItem.com.invite}}</a>
+						<a class="getLang" href="javascript:void(0)"  @click="displayMenu">{{langList[currentLang]}}<span></span></a>
+					</div>
+									
+					
+					
+
+					<div class="lang_list" v-show="menu">
+
+						<ul>
+							<li v-for="(value,index) in langList" @click="changeLang(index)">{{value}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="top_img"><img src="images/top_2.jpg"></div>
+				<div class="top_pc_img2"></div> <!--pc-->
+				
+
+			</div>
+			<!--header end-->
+
+			<div class="content_box box_bg">
+
+			
+				
+				
+				<div class="member_info common_bg">
+					<h3>{{langItem.member.memberInfo}}</h3>
+					<ul>
+						<li>{{langItem.member.myID}}：{{playerID}}</li>
+						
+						<li>
+							{{langItem.member.inviteLink}}：
+							<span id="url">{{formatMyURL}}</span>
+							<div><button  class="btn copy_button"   :data-clipboard-text="formatMyURL">{{langItem.com.copy}}</button></div>
+						</li>
+					</ul>
+					
+				</div>
+
+
+				<div style="font-size: 18px; text-align: center; margin: 20px;">
+				    {{langItem.member.myTeam}}：<span class="red">{{teamCount}}</span>
+			   </div>
+				<div class="history common_bg">
+					<h3>{{langItem.member.invitationList}} ({{langItem.history.total}} <span class="red">{{inviteCount}}</span> {{langItem.history.strip}})</h3>
+				
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<th>UID</th>
+							<th>{{langItem.history.time}}</th>
+							
+						</tr>
+						<tr v-for="(value,index) in inviteList">
+							<td>{{value.id}}</td>
+							<td>{{value.time | formatTimeStamp('yyyy-MM-dd hh:mm')}}</td>
+							
+						</tr>
+						
+						</tr>
+					</table>
+				     <div class="get_page">
+						<em class="circle-left" @click="getInvitePage(-1)">&nbsp;</em> 
+						{{inviteIndex}} / {{invitePageCount}}
+						<em class="circle-right" @click="getInvitePage(1)">&nbsp;</em>
+					</div>
+				</div>
+
+			</div>
+			<!--content_box end-->
+        <layer-up  v-show="copySuccess"  :title="langItem.com.tip" :message="langItem.com.copySuccess"></layer-up>
+
+		<loading v-show="showLoading"></loading>
+		</div>
+
+		<script type="text/javascript" src="javascript/app.js "></script>
+
+	</body>
+
+</html>

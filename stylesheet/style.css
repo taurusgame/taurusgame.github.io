@@ -1,0 +1,58 @@
+@media screen and (min-width:768px) {	
+	.block_item {
+		margin-right: 15px;
+	}
+
+	.item ul li {
+		float: none;
+		display: inline-block;
+	}
+	.item_box ul li {
+		width: 50%;
+	}
+	.top_pc_img{height: 800px; display: block; background: url(../images/pc_top_bg.jpg) no-repeat top center; background-size: cover;}
+	.top_pc_img2{height: 800px; display: block; background: url(../images/pc_top_bg2.jpg) no-repeat top center; background-size: cover;}
+	.top_img{display: none;}
+	
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.logo img {
+		width: 230px;
+	}
+}
+
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+	
+	.logo img {
+		width: 220px;
+	}
+	
+	.lang_btn {
+		display: block;
+	}
+	
+	.lang_list {
+		display: block;
+	}
+
+	.invest_form .item {
+		margin: 10px 10px;
+		margin-left: 15px;
+	}
+	.item ul li:nth-child(5) {
+		clear: both;
+	}
+	.block_box ul li:nth-last-child(-n+2) {
+		border-bottom: none;
+	}
+	.top_pc_img{
+		display: none;
+	}
+	.top_pc_img2{
+		display: none;
+	}
+	.top_img{
+		display: block;
+	}
+}

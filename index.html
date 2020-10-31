@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Taurus</title>
+		<link rel="stylesheet" href="stylesheet/common.css" />
+		<link rel="stylesheet" href="stylesheet/style.css" />
+		<link rel="icon" type="image/x-icon" href='images/favicon.ico' />
+		<script type="text/javascript" src="javascript/jquery.js"></script>
+		<script type="text/javascript" src="javascript/clipboard.min.js"></script>
+		<script type="text/javascript" src="javascript/tronweb.js"></script>
+		<script type="text/javascript" src="javascript/language.js"></script>
+		<script type="text/javascript" src="javascript/vue.js"></script>
+		<script type="text/javascript">
+			var TAG = "INDEX";
+		</script>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+
+			<div class="header">
+				<!--header start-->
+				<div class="top">
+                    
+					<div class="nav">
+						<a href="javascript:void(0)"  @click="getMenu('index')" :class="{'current':TAG=='INDEX'}">{{langItem.com.home}}</a>					
+					    <a href="javascript:void(0)"  @click="getMenu('main')" :class="{'current':TAG=='MAIN'}">{{langItem.com.main}}</a>
+						<a  href="javascript:void(0)" @click="getMenu('invite')" :class="{'current':TAG=='INVITE'}">{{langItem.com.invite}}</a>
+						<a class="getLang" href="javascript:void(0)"  @click="displayMenu">{{langList[currentLang]}}<span></span></a>
+					</div>
+					
+					
+
+					<div class="lang_list" v-show="menu">
+
+						<ul>
+							<li v-for="(value,index) in langList" @click="changeLang(index)">{{value}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="top_img"><img src="images/top_bg.jpg"></div>
+				<div class="top_pc_img"></div>
+				<div class="top_content">
+					
+					<div class="logo">
+						<a :href="'index.html?pid='+pid"><img src="images/logo.png"></a>
+					</div>
+                    <div class="title"><span>{{langItem.index.title}}</span></div>
+					
+					<div class="click_btn">
+						<a href="javascript:void(0)"  @click="getMenu('main')">{{langItem.index.joinNow}}</a>
+					</div>
+				</div>
+
+			</div>
+			<!--header end-->
+
+			<div class="content_box" style="position: relative;">
+              <div class="intro">{{langItem.index.intro}}</div>
+			  <div class="game_link"><a  href="javascript:void(0)" @click="getMenu('rule')">{{langItem.index.gameRule}}</a></div>
+				<div class="item_box">
+
+					<ul>
+						<li v-for="(value,index) in langItem.index.feature">
+							<dl>
+								<dt><img :src="'images/mit_0'+(index+1)+'.png'" /></dt>
+								<dd>
+									<p class="item_title mainColor">{{value.title}}</p>
+									<p class="item_txt">{{value.txt}}</p>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="contract_infor">
+					
+					
+					<div class="address">
+						{{langItem.index.contractAddress}}
+						<br />
+						<a :href="'https://tronscan.org/#/contract/'+contractAddress">{{contractAddress}}</a>
+					</div>
+					
+					
+					
+				</div>
+
+				<div class="web_data">
+					<div class="big_title"><span></span>{{langItem.data.title}}<span></span></div>
+					<ul>
+						<li>
+							<dl>
+								
+								<dd>
+									<p class="number">{{stat[0]}}</p>
+									<p class="item item_01">{{langItem.data.totalMembers}}</p>
+									
+								</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dd>
+									<p class="number">{{stat[10]}}</p>
+									<p class="item item_02">{{langItem.data.todayMembers}}</p>
+									
+								</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dd>
+									<p class="number">{{stat[1] / 10**6 | numFilter}}</p>
+									<p class="item item_03">{{langItem.data.totalIncome}}(TRX)</p>	
+								</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dd>
+									<p class="number">{{stat[3] / 10**6 | numFilter}}</p>
+									<p class="item item_04">{{langItem.data.totalRandom}}(TRX)</p>
+								</dd>
+							</dl>
+						</li>
+
+					</ul>
+					<div class="clear"></div>
+					<div class="link_btn"><a  href="javascript:void(0)" @click="getMenu('stat')">{{langItem.data.moreData}}</a></div>
+				</div>
+				
+				<div class="faq"><!--faq start-->
+					<div class="big_title"><span></span>{{langItem.faq.title}}<span></span></div>
+					<ul class="mt30">
+						<li class="close" v-for="(value,index) in langItem.faq.list">
+							<dt>{{value.ask}}</dt>
+							<dd>{{value.answer}}</dd>
+						</li>
+					</ul>
+				</div><!--faq end-->
+				
+				<div class="footer">
+					<div class="copyRight">©Taurus</div>
+					<div class="contract">{{langItem.index.contractAddress}}<a :href="'https://tronscan.org/#/contract/'+contractAddress">{{contractAddress}}</a></div>
+					
+					<div class="img_link">
+						<a href="javascript:void(0)"><img src="images/t.png" /></a>
+						<a href="javascript:void(0)"><img src="images/y.png" /></a>
+						<a href="javascript:void(0)"><img src="images/e.png" /></a>
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+
+		<script type="text/javascript" src="javascript/app.js "></script>
+		
+		<script type="text/javascript">
+			$(function(){
+               $(".faq ul li").click(function(){ 
+				   if($(this).hasClass("close")){
+					   $(this).removeClass("close").addClass("open");
+				   }else{
+					    $(this).removeClass("open").addClass("close");
+				   }
+			   })
+			});
+		</script>
+
+	</body>
+
+</html>
